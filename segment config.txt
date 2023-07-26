@@ -1,0 +1,60 @@
+###########################################################
+####################### R1 ################################
+###########################################################
+
+#Configure the Segment Routing Global Block (SRBG)#
+/configure router mpls-labels
+sr-labels start 20000 end 29999
+
+#Enable Segment Routing Features in the OSPF context#
+
+/configure router ospf
+advertise-router-capability area
+segment-routing prefix-sid-range global
+area 0.0.0.0 interface "system" node-sid index 1
+segment-routing no shutdown
+
+###########################################################
+####################### R2 ################################
+###########################################################
+
+#Configure the Segment Routing Global Block (SRBG)#
+/configure router mpls-labels
+sr-labels start 20000 end 29999
+
+#Enable Segment Routing Features in the OSPF context#
+
+/configure router ospf
+advertise-router-capability area
+segment-routing prefix-sid-range global
+area 0.0.0.0 interface "system" node-sid index 2
+segment-routing no shutdown
+
+###########################################################
+####################### R3 ################################
+###########################################################
+
+#Configure the Segment Routing Global Block (SRBG)#
+/configure router mpls-labels
+sr-labels start 20000 end 29999
+
+#Enable Segment Routing Features in the OSPF context#
+
+/configure router ospf
+advertise-router-capability area
+segment-routing prefix-sid-range global
+area 0.0.0.0 interface "system" node-sid index 3
+segment-routing no shutdown
+
+
+###########################################################
+####################### VERIFY  ###########################
+###########################################################
+
+
+show router fp-tunnel-table 1 protocol ospf
+show router tunnel-table 
+show router tunnel-table alternative 
+show router tunnel-table protocol ospf
+tools dump router ospf 0 sr-adjacencies
+tools dump router ospf 0 sr-database

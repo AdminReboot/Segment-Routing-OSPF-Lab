@@ -1,0 +1,69 @@
+###########################################################
+####################### R1 ################################
+###########################################################
+#System Name#
+/configure system name R1
+
+#Port#
+/configure port 1/1/1 no shutdown
+
+#Interface#
+/configure router interface system address 10.250.88.1/32
+
+/configure router interface to-R2 address 10.1.2.1/24
+/configure router interface to-R2 port 1/1/1
+
+#OSPF#
+/configure router ospf area 0
+/configure router ospf area 0 interface system
+/configure router ospf area 0 interface to-R2 interface-type point-to-point
+/configure router ospf no shutdown 
+
+###########################################################
+####################### R2 ################################
+###########################################################
+#System Name#
+/configure system name R2
+
+#Port#
+/configure port 1/1/1 no shutdown
+/configure port 1/1/2 no shutdown
+
+#Interface#
+/configure router interface system address 10.250.88.2/32
+
+/configure router interface to-R1 address 10.1.2.2/24
+/configure router interface to-R1 port 1/1/1
+
+/configure router interface to-R3 address 10.2.3.2/24
+/configure router interface to-R3 port 1/1/2
+
+
+#OSPF#
+/configure router ospf area 0
+/configure router ospf area 0 interface system
+/configure router ospf area 0 interface to-R1 interface-type point-to-point
+/configure router ospf area 0 interface to-R3 interface-type point-to-point
+/configure router ospf no shutdown 
+
+
+###########################################################
+####################### R3 ################################
+###########################################################
+#System Name#
+/configure system name R3
+
+#Port#
+/configure port 1/1/2 no shutdown
+
+#Interface#
+/configure router interface system address 10.250.88.3/32
+
+/configure router interface to-R2 address 10.2.3.3/24
+/configure router interface to-R2 port 1/1/2
+
+#OSPF#
+/configure router ospf area 0
+/configure router ospf area 0 interface system
+/configure router ospf area 0 interface to-R2 interface-type point-to-point
+/configure router ospf no shutdown 
